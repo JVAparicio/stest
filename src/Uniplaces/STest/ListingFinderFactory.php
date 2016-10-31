@@ -12,7 +12,7 @@ abstract class ListingFinderFactory
      */
     public static function createSimple()
     {
-        return new ListingFinder('simple');
+        return new ListingFinderSearchTypeSimple();
     }
 
     /**
@@ -20,6 +20,6 @@ abstract class ListingFinderFactory
      */
     public static function createAdvanced()
     {
-        return new ListingFinder('advanced');
+        return new ListingFinderSearchTypeAdvanced();
     }
 }
