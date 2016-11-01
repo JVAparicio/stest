@@ -34,79 +34,80 @@ class ListingFinder implements ListingFinderInterface
         $matchListings = [];		
 		
         foreach ($listings as $listing) 
-		{
-			$stillValid = $this->checkCity($listing, $search);	
-			$stillValid = $stillValid && $this->checkStayTime($listing, $search);
-			$stillValid = $stillValid && $this->checkTenantTypes($listing, $search);
-			$stillValid = $stillValid && $this->handleSearchType($listing, $search);
+        {
+            $stillValid = $this->checkCity($listing, $search);	
+            $stillValid = $stillValid && $this->checkStayTime($listing, $search);
+            $stillValid = $stillValid && $this->checkTenantTypes($listing, $search);
+            $stillValid = $stillValid && $this->handleSearchType($listing, $search);
        		
-			if ($stillValid){
-				$matchListings[] = $listing;
-			}
-		} 
+            if ($stillValid){
+                $matchListings[] = $listing;
+            }
+        } 
 		return $matchListings;
-	}
+    }
 	
-	/**
+    /**
      * @param Listing $listing
      * @param array    $search
 	 * @param bool     $stillValid
      *
      * @return bool
      */
-	protected function handleSearchType($listing, array $search)
-	{	
-	}
+    protected function handleSearchType($listing, array $search)
+    {	
+    }
 	
-	/**
+    /**
      * @param Listing $listing
      * @param array    $search
      *
      * @return bool
      */
-	private function checkCity($listing, $search) 
-	{		
-		if ($listing->getLocalization()->getCity() != $search['city']) {
-			return false;
-		}
-	    return true;
-	}
-	
-	/**
-     * @param Listing $listing
-     * @param array    $search
-     *
-     * @return bool
-     */
-	private function checkStayTime($listing, $search) 
-	{
-        $stayTime = $listing->getRequirements()->getStayTime();		
-		if (isset($search['start_date']) && $stayTime instanceof StayTime) {
-                /** @var DateTime $startDate */
-                $startDate = $search['start_date'];
-                /** @var DateTime $endDate */
-                $endDate = $search['end_date'];
-                $interval = $endDate->diff($startDate);
-                $days = (int)$interval->format('%a');
-
-                if ($days < $stayTime->getMin() || $days > $stayTime->getMax()) {
-                    return false;
-                }
+    private function checkCity($listing, $search) 
+    {		
+        if ($listing->getLocalization()->getCity() != $search['city']) {
+            return false;
         }
-		return true;
-	}
+        return true;
+    }
 	
-	/**
+    /**
      * @param Listing $listing
      * @param array    $search
      *
      * @return bool
      */
-	private function checkTenantTypes($listing, $search) {
-		$tenantTypes = $listing->getRequirements()->getTenantTypes();
-		if ($tenantTypes instanceof TenantTypes && !in_array($search['occupation'], $tenantTypes->toArray())) {
+    private function checkStayTime($listing, $search) 
+    {
+        $stayTime = $listing->getRequirements()->getStayTime();		
+        if (isset($search['start_date']) && $stayTime instanceof StayTime) {
+            /** @var DateTime $startDate */
+            $startDate = $search['start_date'];
+            /** @var DateTime $endDate */
+            $endDate = $search['end_date'];
+            $interval = $endDate->diff($startDate);
+            $days = (int)$interval->format('%a');
+
+            if ($days < $stayTime->getMin() || $days > $stayTime->getMax()) {
                 return false;
             }
-		return true;	
-	}	
+        }
+        return true;
+    }
+	
+    /**
+     * @param Listing $listing
+     * @param array    $search
+     *
+     * @return bool
+     */
+    private function checkTenantTypes($listing, $search) 
+	{
+        $tenantTypes = $listing->getRequirements()->getTenantTypes();
+        if ($tenantTypes instanceof TenantTypes && !in_array($search['occupation'], $tenantTypes->toArray())) {
+                return false;
+        }
+        return true;	
+    }	
 }
