@@ -44,13 +44,12 @@ class ListingFinder implements ListingFinderInterface
                 $matchListings[] = $listing;
             }
         } 
-		return $matchListings;
+        return $matchListings;
     }
 	
     /**
      * @param Listing $listing
      * @param array    $search
-	 * @param bool     $stillValid
      *
      * @return bool
      */
