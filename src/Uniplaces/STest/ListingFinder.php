@@ -14,6 +14,7 @@ class ListingFinder implements ListingFinderInterface
      */
     protected $searchType;
 
+
     /**
      * @param string $searchType simple|advanced
      */
@@ -46,13 +47,13 @@ class ListingFinder implements ListingFinderInterface
 		return $matchListings;
 	}
 	
-	 /**
+	/**
      * @param Listing $listing
      * @param array    $search
 	 * @param bool     $stillValid
      *
-    * @return bool
-    */
+     * @return bool
+     */
 	protected function handleSearchType($listing, array $search)
 	{	
 	}
@@ -63,11 +64,12 @@ class ListingFinder implements ListingFinderInterface
      *
      * @return bool
      */
-	private function checkCity($listing, $search) {		
+	private function checkCity($listing, $search) 
+	{		
 		if ($listing->getLocalization()->getCity() != $search['city']) {
-		    return false;
+			return false;
 		}
-			return true;
+	    return true;
 	}
 	
 	/**
@@ -76,7 +78,8 @@ class ListingFinder implements ListingFinderInterface
      *
      * @return bool
      */
-	private function checkStayTime($listing, $search) {
+	private function checkStayTime($listing, $search) 
+	{
         $stayTime = $listing->getRequirements()->getStayTime();		
 		if (isset($search['start_date']) && $stayTime instanceof StayTime) {
                 /** @var DateTime $startDate */
@@ -92,6 +95,7 @@ class ListingFinder implements ListingFinderInterface
         }
 		return true;
 	}
+	
 	/**
      * @param Listing $listing
      * @param array    $search

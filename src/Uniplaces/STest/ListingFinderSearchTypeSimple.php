@@ -4,8 +4,14 @@ namespace Uniplaces\STest;
 
 final class ListingFinderSearchTypeSimple extends ListingFinder
 {
-	protected function handleSearchType($listing, array $search)
-  {	 
-	return true;
-  }
+    /**
+     * @param Listing $listing
+     * @param array    $search
+     *
+     * @return bool
+     */
+    protected function handleSearchType($listing, array $search)
+    {	 
+        return true;
+    }
 }
