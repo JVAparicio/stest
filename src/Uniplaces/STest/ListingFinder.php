@@ -102,7 +102,7 @@ class ListingFinder implements ListingFinderInterface
      * @return bool
      */
     private function checkTenantTypes($listing, $search) 
-	{
+    {
         $tenantTypes = $listing->getRequirements()->getTenantTypes();
         if ($tenantTypes instanceof TenantTypes && !in_array($search['occupation'], $tenantTypes->toArray())) {
                 return false;
