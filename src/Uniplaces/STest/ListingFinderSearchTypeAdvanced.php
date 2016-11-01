@@ -14,9 +14,9 @@ final class ListingFinderSearchTypeAdvanced extends ListingFinder
     protected function handleSearchType($listing, array $search)
     {	 
         if(!$this->checkAdress($listing, $search)) {
-		   return false;
+           return false;
         }		
-	    return $this->checkPrice($listing, $search);
+        return $this->checkPrice($listing, $search);
     }
   
     /**
@@ -27,7 +27,7 @@ final class ListingFinderSearchTypeAdvanced extends ListingFinder
      */
     private function checkAdress($listing, $search) 
     {
-	    if (isset($search['address'])) {
+        if (isset($search['address'])) {
             $listingAddress = strtolower(trim($listing->getLocalization()->getAddress()));
             $address = strtolower(trim($search['address']));
 					 
@@ -35,7 +35,7 @@ final class ListingFinderSearchTypeAdvanced extends ListingFinder
                 return false;
             }			
         }		
-	    return true;
+        return true;
     }
 	
     /**
@@ -44,11 +44,11 @@ final class ListingFinderSearchTypeAdvanced extends ListingFinder
      *
      * @return bool
      */
-	private function checkPrice($listing, $search) 
+    private function checkPrice($listing, $search) 
     {
         if (isset($search['price'])) {
             $listingPrice = $listing->getPrice();
-			$minPricing = isset($search['price']['min']) ? $search['price']['min'] : null;
+            $minPricing = isset($search['price']['min']) ? $search['price']['min'] : null;
             $maxPricing = isset($search['price']['max']) ? $search['price']['max'] : null;
 
             if (($minPricing !== null && $minPricing > $listingPrice) || ($maxPricing !== null && $maxPricing < $listingPrice)) {
